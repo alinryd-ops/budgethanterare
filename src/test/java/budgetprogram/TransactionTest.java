@@ -17,4 +17,18 @@ public class TransactionTest {
         assertEquals(0.01, t.amount(), 0.001);
     }
 
+    @Test
+    void transaction0ThrowsInvalidTransaction() {
+
+        //Created Transaction
+        assertThrows(InvalidTransactionException.class, () -> {
+            new Transaction(LocalDate.of(2026, 10, 14),
+                    "Candy", 0, TransactionType.EXPENSE);
+        //Check if transaction is 0
+
+
+        });
+
+    }
+
 }
