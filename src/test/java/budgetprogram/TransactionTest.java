@@ -59,4 +59,12 @@ public class TransactionTest {
         });
     }
 
+    @Test
+    void transactionWithOnlyDigitsCategoryThrowsInvalidTransaction(){
+        assertThrows(InvalidTransactionException.class, () -> {
+            new Transaction(LocalDate.of(2026, 10, 14),
+                    "123", 20, TransactionType.EXPENSE);
+        });
+    }
+
 }
