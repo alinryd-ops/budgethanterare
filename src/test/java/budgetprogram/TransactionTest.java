@@ -43,4 +43,20 @@ public class TransactionTest {
         });
     }
 
+    @Test
+    void transactionWithBlankCategoryThrowsInvalidTransaction(){
+        assertThrows(InvalidTransactionException.class, () -> {
+            new Transaction(LocalDate.of(2026, 10, 14),
+                    "  ", 20, TransactionType.EXPENSE);
+        });
+    }
+
+    @Test
+    void transactionWithNullCategoryThrowsInvalidTransaction(){
+        assertThrows(InvalidTransactionException.class, () -> {
+            new Transaction(LocalDate.of(2026, 10, 14),
+                    null, 20, TransactionType.EXPENSE);
+        });
+    }
+
 }
