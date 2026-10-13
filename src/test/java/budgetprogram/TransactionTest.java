@@ -19,16 +19,20 @@ public class TransactionTest {
 
     @Test
     void transaction0ThrowsInvalidTransaction() {
-
         //Created Transaction
         assertThrows(InvalidTransactionException.class, () -> {
             new Transaction(LocalDate.of(2026, 10, 14),
                     "Candy", 0, TransactionType.EXPENSE);
-        //Check if transaction is 0
-
-
         });
+    }
 
+
+    @Test
+    void transactionNegativeAmountThrowsInvalidTransaction(){
+        assertThrows(InvalidTransactionException.class, () -> {
+            new Transaction(LocalDate.of(2026, 10, 14),
+                    "Candy", -2, TransactionType.EXPENSE);
+        });
     }
 
 }
