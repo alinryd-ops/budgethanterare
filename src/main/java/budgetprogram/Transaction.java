@@ -17,7 +17,21 @@ public record Transaction(LocalDate date,
             throw new InvalidTransactionException("Category cannot be empty");
         }
 
+
+        boolean hasLetter = false;
+
+        for (int i = 0; i < category.length(); i++) {
+            if (Character.isLetter(category.charAt(i))) {
+                hasLetter = true;
+            }
+        }
+
+        if (!hasLetter) {
+            throw new InvalidTransactionException("Category must have a letter");
+        }
+
     }
 
 }
+
 
