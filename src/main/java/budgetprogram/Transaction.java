@@ -1,4 +1,10 @@
 package budgetprogram;
 
-public class Transaction {
+import java.time.LocalDate;
+
+public record Transaction(LocalDate date,
+                          String category,
+                          double amount,
+                          TransactionType EXPENSE)
+{
 }
