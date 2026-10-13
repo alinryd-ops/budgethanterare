@@ -13,6 +13,10 @@ public record Transaction(LocalDate date,
 
         }
 
+        if (category == null || category.isBlank()) {
+            throw new InvalidTransactionException("Category cannot be empty");
+        }
+
     }
 
 }
