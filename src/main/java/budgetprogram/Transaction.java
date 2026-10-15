@@ -34,6 +34,10 @@ public record Transaction(LocalDate date,
             throw new InvalidTransactionException("Date cannot be null");
         }
 
+        if (type == null) {
+            throw new InvalidTransactionException("Type cannot be null");
+        }
+
     }
 
 }

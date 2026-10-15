@@ -1,5 +1,7 @@
 package budgetprogram;
 
 public enum TransactionType {
-    EXPENSE
+    EXPENSE,
+    INCOME,
+
 }

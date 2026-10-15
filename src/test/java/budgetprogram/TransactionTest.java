@@ -86,7 +86,15 @@ public class TransactionTest {
     @Test
     void nullDateThrowsInvalidTransaction(){
         assertThrows(InvalidTransactionException.class, () -> {
-            new Transaction(null, "Mat3", 20, TransactionType.EXPENSE);
+            new Transaction(null, "Mat3", 20, TransactionType.INCOME);
+        });
+    }
+
+    @Test
+    void nullTypeThrowsInvalidTransaction(){
+        assertThrows(InvalidTransactionException.class, () -> {
+            new Transaction(LocalDate.of(2026, 10, 14),
+                    "Mat3", 20, null);
         });
     }
 }
