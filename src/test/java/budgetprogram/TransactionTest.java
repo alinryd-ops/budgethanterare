@@ -67,4 +67,22 @@ public class TransactionTest {
         });
     }
 
+    @Test
+    void transactionWithDigitsAndLettersCategoryShouldNotThrowsInvalidTransaction(){
+        Transaction t = new Transaction(LocalDate.of(2026, 10, 14),
+                "Mat3", 20, TransactionType.EXPENSE);
+
+        assertEquals("Mat3", t.category());
+    }
+
+    @Test
+    void transactionWithDigitsFirstAndLettersCategoryShouldNotThrowsInvalidTransaction(){
+        Transaction t = new Transaction(LocalDate.of(2026, 10, 14),
+                "3D-skrivare", 20, TransactionType.EXPENSE);
+
+        assertEquals("3D-skrivare", t.category());
+    }
 }
+
+
+
