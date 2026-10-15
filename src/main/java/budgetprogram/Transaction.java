@@ -30,6 +30,10 @@ public record Transaction(LocalDate date,
             throw new InvalidTransactionException("Category must have a letter");
         }
 
+        if (date == null) {
+            throw new InvalidTransactionException("Date cannot be null");
+        }
+
     }
 
 }

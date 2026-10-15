@@ -82,6 +82,13 @@ public class TransactionTest {
 
         assertEquals("3D-skrivare", t.category());
     }
+
+    @Test
+    void nullDateThrowsInvalidTransaction(){
+        assertThrows(InvalidTransactionException.class, () -> {
+            new Transaction(null, "Mat3", 20, TransactionType.EXPENSE);
+        });
+    }
 }
 
 
