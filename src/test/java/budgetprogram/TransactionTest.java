@@ -97,6 +97,12 @@ public class TransactionTest {
                     "Mat3", 20, null);
         });
     }
+
+    @Test
+    void newRepositoryIsEmpty(){
+        Repository<Transaction> repo = new Repository<>();
+        assertEquals(0, repo.size());
+    }
 }
 
 
