@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Repository <T>{
     private ArrayList<T> list;
+
+
     public Repository(){
         list = new ArrayList<>();
     }

@@ -57,4 +57,5 @@ public class RepositoryTest {
         assertEquals(t1, repo.getList().get(0));
         assertEquals(t2, repo.getList().get(1));
     }
+
 }
