@@ -13,6 +13,9 @@ public class Repository <T>{
     }
 
     public void add(T t) {
+        if (t == null) {
+            throw new IllegalArgumentException("Transaction cannot be null");
+        }
         list.add(t);
     }
 
