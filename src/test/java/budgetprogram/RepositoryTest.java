@@ -23,4 +23,15 @@ public class RepositoryTest {
         assertEquals(1, repo.size());
 
     }
+
+    @Test
+    void getListReturnsTheItemThatWasAdded() {
+        Repository<Transaction> repo = new Repository<>();
+        Transaction t = new Transaction(LocalDate.of(2026, 10, 14),
+                "Mat", 20, TransactionType.EXPENSE);
+
+        repo.add(t);
+
+        assertEquals(t, repo.getList().get(0));
+    }
 }

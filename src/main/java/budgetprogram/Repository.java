@@ -15,4 +15,8 @@ public class Repository <T>{
     public void add(T t) {
         list.add(t);
     }
+
+    public ArrayList<T> getList(){
+        return list;
+    }
 }
