@@ -41,4 +41,20 @@ public class RepositoryTest {
         Repository<Transaction> repo = new Repository<>();
         assertThrows(IllegalArgumentException.class, () -> repo.add(null));
     }
+
+    @Test
+    void listOnlyGrows1StepWhenNewTransactionIsAdded() {
+        Repository<Transaction> repo = new Repository<>();
+        Transaction t1 = new Transaction(LocalDate.of(2026, 10, 14),
+                "Hyra", 20, TransactionType.EXPENSE);
+        Transaction t2 = new Transaction(LocalDate.of(2026, 10, 15),
+                "Lön", 45, TransactionType.INCOME);
+
+        repo.add(t1);
+        repo.add(t2);
+
+        assertEquals(2, repo.size());
+        assertEquals(t1, repo.getList().get(0));
+        assertEquals(t2, repo.getList().get(1));
+    }
 }
