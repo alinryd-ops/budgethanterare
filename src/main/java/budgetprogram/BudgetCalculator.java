@@ -14,8 +14,13 @@ public class BudgetCalculator {
 
     public double getBalance () {
         double sum = 0.0;
+
         for (Transaction transaction : transactions) {
-            sum = sum + transaction.amount();
+            if (transaction.type() == TransactionType.INCOME) {
+                sum = sum + transaction.amount();
+            } else {
+                sum = sum - transaction.amount();
+            }
         }
         return sum;
     }
