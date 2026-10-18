@@ -35,4 +35,8 @@ public class BudgetCalculator {
         return sum;
     }
 
+    public double getIncomes() {
+        return 0.0;
+    }
+
 }
