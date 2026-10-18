@@ -1,6 +1,7 @@
 package budgetprogram;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 public class Repository <T>{
@@ -33,6 +34,12 @@ public class Repository <T>{
                 result.add(item);
             }
         }
+        return result;
+    }
+
+    public ArrayList<T> sortedBy(Comparator<T> comparator) {
+        ArrayList<T> result = new ArrayList<>();
+        for (T item : list) {}
         return result;
     }
 }

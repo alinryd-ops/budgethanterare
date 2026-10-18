@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -93,6 +94,24 @@ public class RepositoryTest {
 
         assertEquals(1, result.size());
         assertEquals("Hyra", result.get(0).category());
+    }
+
+    @Test
+    void sortedByDateGivesListInDateOrder() {
+        Repository<Transaction> repo = new Repository<>();
+        repo.add(new Transaction(LocalDate.of(2026, 10, 15),
+                "Lön", 500, TransactionType.INCOME));
+        repo.add(new Transaction(LocalDate.of(2026, 10, 13),
+                "Mat", 100, TransactionType.EXPENSE));
+        repo.add(new Transaction(LocalDate.of(2026, 10, 14),
+                "Hyra", 800, TransactionType.EXPENSE));
+
+        ArrayList<Transaction> result =
+                repo.sortedBy(Comparator.comparing(Transaction::date));
+
+        assertEquals("Mat", result.get(0).category());
+        assertEquals("Hyra", result.get(1).category());
+        assertEquals("Lön", result.get(2).category());
     }
 
 
