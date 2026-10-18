@@ -27,6 +27,12 @@ public class Repository <T>{
     }
 
     public ArrayList<T> findWhere(Predicate <T> condition) {
-        return new ArrayList<>();
+        ArrayList<T> result = new ArrayList<>();
+        for (T item : list) {
+            if (condition.test(item)) {
+                result.add(item);
+            }
+        }
+        return result;
     }
 }
