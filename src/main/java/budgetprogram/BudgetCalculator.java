@@ -2,6 +2,10 @@ package budgetprogram;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class BudgetCalculator {
 
@@ -43,6 +47,14 @@ public class BudgetCalculator {
             }
         }
         return sum;
+    }
+
+    public Map<String, Double> getExpensesByCategory() {
+        return transactions.stream()
+                .filter(transaction -> transaction.type() == TransactionType.EXPENSE)
+                .collect(Collectors.groupingBy(
+                        Transaction::category,
+                        Collectors.summingDouble(Transaction::amount)));
     }
 
 }
