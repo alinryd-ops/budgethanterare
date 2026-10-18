@@ -29,7 +29,20 @@ public class BudgetCalculatorTest {
     }
 
     @Test
-    void balanceIsIncomeMinusExpense() {
+    void balanceIsIncomeMinusExpenseTestNegativeBalance() {
+        List<Transaction> list = new ArrayList<>();
+        list.add(new Transaction(LocalDate.of(2026, 10, 15),
+                "Lön", 1, TransactionType.INCOME));
+        list.add(new Transaction(LocalDate.of(2026, 10, 14),
+                "Hyra", 20, TransactionType.EXPENSE));
+
+        BudgetCalculator calc = new BudgetCalculator(list);
+
+        assertEquals(-19, calc.getBalance(), 0.001);
+    }
+
+    @Test
+    void balanceIsIncomeMinusExpenseTestPositiveBalance() {
         List<Transaction> list = new ArrayList<>();
         list.add(new Transaction(LocalDate.of(2026, 10, 15),
                 "Lön", 45, TransactionType.INCOME));
