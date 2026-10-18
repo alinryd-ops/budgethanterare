@@ -25,4 +25,8 @@ public class BudgetCalculator {
         return sum;
     }
 
+    public double getExpenses() {
+        return 0.0;
+    }
+
 }

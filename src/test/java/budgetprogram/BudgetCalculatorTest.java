@@ -54,5 +54,20 @@ public class BudgetCalculatorTest {
         assertEquals(25, calc.getBalance(), 0.001);
     }
 
+    @Test
+    void expensesOnlyCountsExpenses() {
+        List<Transaction> list = new ArrayList<>();
+        list.add(new Transaction(LocalDate.of(2026, 10, 15),
+                "Lön", 100, TransactionType.INCOME));
+        list.add(new Transaction(LocalDate.of(2026, 10, 14),
+                "Hyra", 20, TransactionType.EXPENSE));
+        list.add(new Transaction(LocalDate.of(2026, 10, 13),
+                "Mat", 30, TransactionType.EXPENSE));
+
+        BudgetCalculator calc = new BudgetCalculator(list);
+
+        assertEquals(50, calc.getExpenses(), 0.001);
+    }
+
 
 }
