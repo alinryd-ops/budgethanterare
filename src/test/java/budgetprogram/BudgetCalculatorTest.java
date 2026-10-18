@@ -117,4 +117,21 @@ public class BudgetCalculatorTest {
         assertEquals(150, result.get("Mat"), 0.001);
     }
 
+    @Test
+    void incomesByCategoryIgnoresExpenses() {
+        List<Transaction> list = new ArrayList<>();
+        list.add(new Transaction(LocalDate.of(2026, 10, 15),
+                "Mat", 100, TransactionType.EXPENSE));
+        list.add(new Transaction(LocalDate.of(2026, 10, 14),
+                "Mat", 50, TransactionType.INCOME));
+        list.add(new Transaction(LocalDate.of(2026, 10, 13),
+                "Mat", 500, TransactionType.INCOME));
+
+        BudgetCalculator calc = new BudgetCalculator(list);
+
+        Map<String, Double> result = calc.getIncomesByCategory();
+
+        assertEquals(550, result.get("Mat"), 0.001);
+    }
+
 }

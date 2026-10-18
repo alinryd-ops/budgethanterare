@@ -57,4 +57,8 @@ public class BudgetCalculator {
                         Collectors.summingDouble(Transaction::amount)));
     }
 
+    public Map<String, Double> getIncomesByCategory() {
+        return new HashMap<>();
+    }
+
 }
