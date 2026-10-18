@@ -36,7 +36,13 @@ public class BudgetCalculator {
     }
 
     public double getIncomes() {
-        return 0.0;
+        double sum = 0.0;
+        for (Transaction transaction : transactions) {
+            if (transaction.type() == TransactionType.INCOME) {
+                sum = sum + transaction.amount();
+            }
+        }
+        return sum;
     }
 
 }
