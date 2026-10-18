@@ -114,6 +114,19 @@ public class RepositoryTest {
         assertEquals("Lön", result.get(2).category());
     }
 
+    @Test
+    void sortedByDoesNotChangeTheOriginalList() {
+        Repository<Transaction> repo = new Repository<>();
+        repo.add(new Transaction(LocalDate.of(2026, 10, 15),
+                "Lön", 500, TransactionType.INCOME));
+        repo.add(new Transaction(LocalDate.of(2026, 10, 13),
+                "Mat", 100, TransactionType.EXPENSE));
+
+        repo.sortedBy(Comparator.comparing(Transaction::date));
+
+        assertEquals("Lön", repo.getList().get(0).category());
+    }
+
 
 
 }
