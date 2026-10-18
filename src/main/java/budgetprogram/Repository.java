@@ -38,8 +38,8 @@ public class Repository <T>{
     }
 
     public ArrayList<T> sortedBy(Comparator<T> comparator) {
-        ArrayList<T> result = new ArrayList<>();
-        for (T item : list) {}
+        ArrayList<T> result = new ArrayList<>(list);
+        result.sort(comparator);
         return result;
     }
 }
