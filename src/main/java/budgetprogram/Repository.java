@@ -1,6 +1,7 @@
 package budgetprogram;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Repository <T>{
     private ArrayList<T> list;
@@ -23,5 +24,9 @@ public class Repository <T>{
 
     public ArrayList<T> getList(){
         return list;
+    }
+
+    public ArrayList<T> findWhere(Predicate <T> condition) {
+        return new ArrayList<>();
     }
 }
