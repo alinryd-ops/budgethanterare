@@ -26,7 +26,13 @@ public class BudgetCalculator {
     }
 
     public double getExpenses() {
-        return 0.0;
+        double sum = 0.0;
+        for (Transaction transaction : transactions) {
+            if (transaction.type() == TransactionType.EXPENSE) {
+                sum = sum + transaction.amount();
+            }
+        }
+        return sum;
     }
 
 }
