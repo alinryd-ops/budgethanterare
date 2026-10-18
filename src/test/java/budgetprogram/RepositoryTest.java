@@ -76,21 +76,25 @@ public class RepositoryTest {
     }
 
     @Test
-    void findWhereCanFilterOnDate() {
+    void findWhereCanFilterOnDateRange() {
         Repository<Transaction> repo = new Repository<>();
-        repo.add(new Transaction(LocalDate.of(2026, 10, 13),
+        repo.add(new Transaction(LocalDate.of(2026, 10, 12),
                 "Mat", 100, TransactionType.EXPENSE));
         repo.add(new Transaction(LocalDate.of(2026, 10, 14),
                 "Hyra", 800, TransactionType.EXPENSE));
-        repo.add(new Transaction(LocalDate.of(2026, 10, 15),
+        repo.add(new Transaction(LocalDate.of(2026, 10, 16),
                 "Lön", 500, TransactionType.INCOME));
 
-        LocalDate limit = LocalDate.of(2026, 10, 13);
+        LocalDate from = LocalDate.of(2026, 10, 13);
+        LocalDate to = LocalDate.of(2026, 10, 15);
 
-        ArrayList<Transaction> result =
-                repo.findWhere(t -> t.date().isAfter(limit));
+        ArrayList<Transaction> result = repo.findWhere(
+                t -> t.date().isAfter(from) && t.date().isBefore(to));
 
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
+        assertEquals("Hyra", result.get(0).category());
     }
+
+
 
 }
