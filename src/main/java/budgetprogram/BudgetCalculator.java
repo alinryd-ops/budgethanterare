@@ -58,7 +58,10 @@ public class BudgetCalculator {
     }
 
     public Map<String, Double> getIncomesByCategory() {
-        return new HashMap<>();
+        return transactions.stream()
+                .filter(transaction -> transaction.type() == TransactionType.INCOME)
+                .collect(Collectors.groupingBy(
+                        Transaction::category,
+                        Collectors.summingDouble(Transaction::amount)));
+        }
     }
-
-}
