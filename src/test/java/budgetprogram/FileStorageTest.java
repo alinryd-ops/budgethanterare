@@ -3,6 +3,7 @@ package budgetprogram;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FileStorageTest {
 
     @Test
-        void fileDoesNotExist() {
+        void fileDoesNotExist() throws IOException {
         FileStorage storage = new FileStorage();
         Repository<Transaction> result = storage.readFile("non-existing.csv");
         assertEquals(0, result.size());
     }
 
     @Test
-    void readFromCreatedFile(@TempDir Path tempDir) {
+    void readFromCreatedFile(@TempDir Path tempDir) throws IOException {
         Repository<Transaction> repo = new Repository<>();
         repo.add(new Transaction(LocalDate.of(2026, 10, 15),
                 "Lön", 500, TransactionType.INCOME));
