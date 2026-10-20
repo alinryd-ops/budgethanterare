@@ -7,9 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BrokenBarrierException;
 
-import static java.nio.file.Files.lines;
 
 public class FileStorage {
 
@@ -45,7 +43,8 @@ public class FileStorage {
                 TransactionType type = TransactionType.valueOf(parts[3]);
                 Transaction t = new Transaction(date, category, amount, type);
                 repo.add(t);
-            } catch (DateTimeParseException _) {}
+            } catch (DateTimeParseException | IllegalArgumentException |
+                     ArrayIndexOutOfBoundsException e ) {}
         }
         return repo;
     }
