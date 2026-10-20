@@ -24,7 +24,7 @@ public class FileStorageTest {
     }
 
     @Test
-    void readFromCreatedFile(@TempDir Path tempDir) throws IOException {
+    void readFromCreatedFile(@TempDir Path tempDir) throws IOException, FileStorageException {
         Repository<Transaction> repo = new Repository<>();
         repo.add(new Transaction(LocalDate.of(2026, 10, 15),
                 "Lön", 500, TransactionType.INCOME));

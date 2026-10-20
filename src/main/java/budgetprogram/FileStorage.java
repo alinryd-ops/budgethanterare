@@ -11,15 +11,17 @@ import java.util.List;
 
 public class FileStorage {
 
-    void saveFile(Repository<Transaction> repository, String path) throws IOException {
+    void saveFile(Repository<Transaction> repository, String path) throws FileStorageException {
         List<String> lines = new ArrayList<>();
         for (Transaction t : repository.getList()) {
             String line = t.date() + "," + t.category() + "," + t.amount() + "," + t.type();
             lines.add(line);
         }
-
-        Files.write(Paths.get(path), lines);
-
+        try {
+            Files.write(Paths.get(path), lines);
+        } catch (IOException e) {
+            throw new FileStorageException("Kunde inte spara filen: " + path, e);
+        }
     }
 
 
