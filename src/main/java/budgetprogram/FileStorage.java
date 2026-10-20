@@ -3,8 +3,11 @@ package budgetprogram;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.nio.file.Files.lines;
 
 public class FileStorage {
 
@@ -26,7 +29,21 @@ public class FileStorage {
 
         }
         List<String> lines = Files.readAllLines(Paths.get(path));
+        Repository<Transaction> repo = new Repository<>();
 
-        return new Repository<>();
+
+
+        for (String line : lines) {
+            String[] parts = line.split(",");
+
+            LocalDate date = LocalDate.parse(parts[0]);
+            String category = parts[1];
+            double amount = Double.parseDouble(parts[2]);
+            TransactionType type = TransactionType.valueOf(parts[3]);
+            Transaction t = new Transaction(date, category, amount, type);
+            repo.add(t);
+
+        }
+        return repo;
     }
 }
