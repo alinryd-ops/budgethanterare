@@ -7,9 +7,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class FileStorage {
+    private static final Logger LOGGER = Logger.getLogger(FileStorage.class.getName());
 
     void saveFile(Repository<Transaction> repository, String path) throws FileStorageException {
         List<String> lines = new ArrayList<>();
@@ -51,7 +53,9 @@ public class FileStorage {
                 Transaction t = new Transaction(date, category, amount, type);
                 repo.add(t);
             } catch (DateTimeParseException | IllegalArgumentException |
-                     ArrayIndexOutOfBoundsException e ) {}
+                     ArrayIndexOutOfBoundsException e ) {
+                LOGGER.warning("Hoppade över trasig rad: " + line);
+            }
         }
         return repo;
     }
