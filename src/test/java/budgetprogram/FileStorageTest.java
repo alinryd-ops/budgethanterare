@@ -134,4 +134,12 @@ public class FileStorageTest {
         assertThrows(FileStorageException.class, () -> storage.saveFile(repo, path));
     }
 
+    @Test
+    void readFileThrowsWhenFileCannotBeRead(@TempDir Path tempDir) {
+        FileStorage storage = new FileStorage();
+        String path = tempDir.toString();
+
+        assertThrows(FileStorageException.class, () -> storage.readFile(path));
+    }
+
 }
