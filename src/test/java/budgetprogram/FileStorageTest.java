@@ -56,4 +56,49 @@ public class FileStorageTest {
         assertEquals(2, result.size());
     }
 
+    @Test
+    void skipsLineWithBadAmount(@TempDir Path tempDir) throws IOException {
+        List<String> lines = List.of(
+                "2026-10-15,Lön,500.0,INCOME",
+                "2026-10-14,Lön,abc,INCOME",
+                "2026-10-13,Mat,100.0,EXPENSE"
+        );
+        String path = tempDir.resolve("badamount.csv").toString();
+        Files.write(Paths.get(path), lines);
+
+        FileStorage storage = new FileStorage();
+        Repository<Transaction> result = storage.readFile(path);
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    void skipsLineWithBadType(@TempDir Path tempDir) throws IOException {
+        List<String> lines = List.of(
+                "2026-10-15,Lön,500.0,INCOME",
+                "2026-10-14,Lön,500.0,BANAN",
+                "2026-10-13,Mat,100.0,EXPENSE"
+        );
+        String path = tempDir.resolve("badtype.csv").toString();
+        Files.write(Paths.get(path), lines);
+
+        FileStorage storage = new FileStorage();
+        Repository<Transaction> result = storage.readFile(path);
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    void skipsLineWithTooFewFields(@TempDir Path tempDir) throws IOException {
+        List<String> lines = List.of(
+                "2026-10-15,Lön,500.0,INCOME",
+                "2026-10-14,Lön",
+                "2026-10-13,Mat,100.0,EXPENSE"
+        );
+        String path = tempDir.resolve("fewfields.csv").toString();
+        Files.write(Paths.get(path), lines);
+
+        FileStorage storage = new FileStorage();
+        Repository<Transaction> result = storage.readFile(path);
+        assertEquals(2, result.size());
+    }
+
 }
