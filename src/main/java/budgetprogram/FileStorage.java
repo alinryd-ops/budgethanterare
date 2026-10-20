@@ -25,12 +25,17 @@ public class FileStorage {
     }
 
 
-    Repository<Transaction> readFile(String path) throws IOException {
+    Repository<Transaction> readFile(String path) throws FileStorageException {
         if (Files.notExists(Paths.get(path))) {
             return new Repository<>();
 
         }
-        List<String> lines = Files.readAllLines(Paths.get(path));
+        List<String> lines;
+        try {
+            lines = Files.readAllLines(Paths.get(path));
+        } catch (IOException e) {
+            throw new FileStorageException("Kunde inte läsa filen: " + path, e);
+        }
         Repository<Transaction> repo = new Repository<>();
 
 

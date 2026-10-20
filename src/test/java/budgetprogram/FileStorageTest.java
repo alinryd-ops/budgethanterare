@@ -17,14 +17,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class FileStorageTest {
 
     @Test
-        void fileDoesNotExist() throws IOException {
+        void fileDoesNotExist() throws FileStorageException {
         FileStorage storage = new FileStorage();
         Repository<Transaction> result = storage.readFile("non-existing.csv");
         assertEquals(0, result.size());
     }
 
     @Test
-    void readFromCreatedFile(@TempDir Path tempDir) throws IOException, FileStorageException {
+    void readFromCreatedFile(@TempDir Path tempDir) throws FileStorageException {
         Repository<Transaction> repo = new Repository<>();
         repo.add(new Transaction(LocalDate.of(2026, 10, 15),
                 "Lön", 500, TransactionType.INCOME));
@@ -41,7 +41,7 @@ public class FileStorageTest {
     }
 
     @Test
-    void skipsBrokenLines(@TempDir Path tempDir) throws IOException {
+    void skipsBrokenLines(@TempDir Path tempDir) throws IOException, FileStorageException {
 
         List<String> lines = List.of(
                 "2026-10-15,Lön,500.0,INCOME",
@@ -58,7 +58,7 @@ public class FileStorageTest {
     }
 
     @Test
-    void skipsLineWithBadAmount(@TempDir Path tempDir) throws IOException {
+    void skipsLineWithBadAmount(@TempDir Path tempDir) throws IOException, FileStorageException {
         List<String> lines = List.of(
                 "2026-10-15,Lön,500.0,INCOME",
                 "2026-10-14,Lön,abc,INCOME",
@@ -73,7 +73,7 @@ public class FileStorageTest {
     }
 
     @Test
-    void skipsLineWithBadType(@TempDir Path tempDir) throws IOException {
+    void skipsLineWithBadType(@TempDir Path tempDir) throws IOException, FileStorageException {
         List<String> lines = List.of(
                 "2026-10-15,Lön,500.0,INCOME",
                 "2026-10-14,Lön,500.0,BANAN",
@@ -88,7 +88,7 @@ public class FileStorageTest {
     }
 
     @Test
-    void skipsLineWithTooFewFields(@TempDir Path tempDir) throws IOException {
+    void skipsLineWithTooFewFields(@TempDir Path tempDir) throws IOException, FileStorageException {
         List<String> lines = List.of(
                 "2026-10-15,Lön,500.0,INCOME",
                 "2026-10-14,Lön",
@@ -103,7 +103,7 @@ public class FileStorageTest {
     }
 
     @Test
-    void readsFieldsInCorrectPlaces(@TempDir Path tempDir) throws IOException {
+    void readsFieldsInCorrectPlaces(@TempDir Path tempDir) throws IOException, FileStorageException {
         List<String> lines = List.of(
                 "2026-10-15,Lön,500.0,INCOME",
                 "2026-10-13,Mat,100.0,EXPENSE"
