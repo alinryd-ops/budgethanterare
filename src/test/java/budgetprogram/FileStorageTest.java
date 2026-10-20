@@ -4,7 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,23 @@ public class FileStorageTest {
         Repository<Transaction> result = storage.readFile(path);
         assertEquals(2, result.size());
 
+    }
+
+    @Test
+    void skipsBrokenLines(@TempDir Path tempDir) throws IOException {
+
+        List<String> lines = List.of(
+                "2026-10-15,Lön,500.0,INCOME",
+                "det här är skräp",
+                "2026-10-13,Mat,100.0,EXPENSE"
+        );
+
+        String path = tempDir.resolve("broken.csv").toString();
+        Files.write(Paths.get(path), lines);
+        FileStorage storage = new FileStorage();
+        Repository<Transaction> result = storage.readFile(path);
+
+        assertEquals(2, result.size());
     }
 
 }
