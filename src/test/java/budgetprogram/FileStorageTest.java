@@ -119,6 +119,8 @@ public class FileStorageTest {
         assertEquals(TransactionType.EXPENSE, second.type());
         assertEquals("Mat", second.category());
         assertEquals(100.0, second.amount(), 0.001);
+        assertEquals(LocalDate.of(2026, 10, 13), second.date());
+        assertEquals(LocalDate.of(2026, 10, 15), first.date());
 
     }
 
