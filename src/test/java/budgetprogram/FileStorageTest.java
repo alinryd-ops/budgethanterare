@@ -101,4 +101,25 @@ public class FileStorageTest {
         assertEquals(2, result.size());
     }
 
+    @Test
+    void readsFieldsInCorrectPlaces(@TempDir Path tempDir) throws IOException {
+        List<String> lines = List.of(
+                "2026-10-15,Lön,500.0,INCOME",
+                "2026-10-13,Mat,100.0,EXPENSE"
+        );
+        String path = tempDir.resolve("sorting.csv").toString();
+        Files.write(Paths.get(path), lines);
+        FileStorage storage = new FileStorage();
+        Repository<Transaction> result = storage.readFile(path);
+        Transaction first = result.getList().get(0);
+        Transaction second = result.getList().get(1);
+        assertEquals("Lön", first.category());
+        assertEquals(500.0, first.amount(), 0.001);
+        assertEquals(TransactionType.INCOME, first.type());
+        assertEquals(TransactionType.EXPENSE, second.type());
+        assertEquals("Mat", second.category());
+        assertEquals(100.0, second.amount(), 0.001);
+
+    }
+
 }
