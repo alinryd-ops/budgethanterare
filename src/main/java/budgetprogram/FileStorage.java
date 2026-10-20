@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BrokenBarrierException;
 
 import static java.nio.file.Files.lines;
 
@@ -36,13 +38,14 @@ public class FileStorage {
         for (String line : lines) {
             String[] parts = line.split(",");
 
-            LocalDate date = LocalDate.parse(parts[0]);
-            String category = parts[1];
-            double amount = Double.parseDouble(parts[2]);
-            TransactionType type = TransactionType.valueOf(parts[3]);
-            Transaction t = new Transaction(date, category, amount, type);
-            repo.add(t);
-
+            try {
+                LocalDate date = LocalDate.parse(parts[0]);
+                String category = parts[1];
+                double amount = Double.parseDouble(parts[2]);
+                TransactionType type = TransactionType.valueOf(parts[3]);
+                Transaction t = new Transaction(date, category, amount, type);
+                repo.add(t);
+            } catch (DateTimeParseException _) {}
         }
         return repo;
     }
