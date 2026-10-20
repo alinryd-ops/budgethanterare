@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileStorageTest {
 
@@ -122,6 +123,15 @@ public class FileStorageTest {
         assertEquals(LocalDate.of(2026, 10, 13), second.date());
         assertEquals(LocalDate.of(2026, 10, 15), first.date());
 
+    }
+
+    @Test
+    void saveFileThrowsWhenFileCannotBeWritten(@TempDir Path tempDir) {
+        Repository<Transaction> repo = new Repository<>();
+        String path = tempDir.resolve("finns-inte").resolve("transactions.csv").toString();
+        FileStorage storage = new FileStorage();
+
+        assertThrows(FileStorageException.class, () -> storage.saveFile(repo, path));
     }
 
 }
