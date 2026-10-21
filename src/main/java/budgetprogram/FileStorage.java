@@ -22,6 +22,7 @@ public class FileStorage {
         try {
             Files.write(Paths.get(path), lines);
         } catch (IOException e) {
+            LOGGER.severe("Kunde inte spara filen: " + path);
             throw new FileStorageException("Kunde inte spara filen: " + path, e);
         }
     }
@@ -36,6 +37,7 @@ public class FileStorage {
         try {
             lines = Files.readAllLines(Paths.get(path));
         } catch (IOException e) {
+            LOGGER.severe("Kunde inte läsa filen: " + path);
             throw new FileStorageException("Kunde inte läsa filen: " + path, e);
         }
         Repository<Transaction> repo = new Repository<>();
