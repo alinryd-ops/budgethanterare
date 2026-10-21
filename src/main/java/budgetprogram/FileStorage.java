@@ -21,6 +21,7 @@ public class FileStorage {
         }
         try {
             Files.write(Paths.get(path), lines);
+            LOGGER.info("File saved at: " + path);
         } catch (IOException e) {
             LOGGER.severe("Kunde inte spara filen: " + path);
             throw new FileStorageException("Kunde inte spara filen: " + path, e);
@@ -54,11 +55,13 @@ public class FileStorage {
                 TransactionType type = TransactionType.valueOf(parts[3]);
                 Transaction t = new Transaction(date, category, amount, type);
                 repo.add(t);
+                LOGGER.fine(t.toString());
             } catch (DateTimeParseException | IllegalArgumentException |
                      ArrayIndexOutOfBoundsException e ) {
                 LOGGER.warning("Hoppade över trasig rad: " + line);
             }
         }
+        LOGGER.info("Läste in " + repo.size() + " transaktioner från " + path);
         return repo;
     }
 }
